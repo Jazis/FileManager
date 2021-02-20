@@ -50,7 +50,8 @@ namespace FileManager
                             {
                                 listBox1.Invoke((MethodInvoker)(() => listBox1.Items.Add(match.Value)));
                                 filesChecked += 1;
-                                label4.Invoke((MethodInvoker)(() => label4.Text = $"Files checked: {foldersChecked}"));
+                                label5.Invoke((MethodInvoker)(() => listBox1.Items.Count.ToString()));
+                                label4.Invoke((MethodInvoker)(() => label4.Text = $"Files checked: {filesChecked}"));
                             }
                         }
                         else { }
@@ -65,6 +66,7 @@ namespace FileManager
                         }
                     }
                     filesChecked += 1;
+                    label5.Invoke((MethodInvoker)(() => listBox1.Items.Count.ToString()));
                     label4.Invoke((MethodInvoker)(() => label4.Text = $"Files checked: {filesChecked}"));
 
                 }
@@ -90,10 +92,12 @@ namespace FileManager
                             listBox1.Invoke((MethodInvoker)(() => listBox1.Items.Add(dir)));
                             ls.Add(dir);
                             foldersChecked += 1;
+                            label5.Invoke((MethodInvoker)(() => listBox1.Items.Count.ToString()));
                             label3.Invoke((MethodInvoker)(() => label3.Text = $"Folders checked: {filesChecked}"));
                         }
                     }
                     foldersChecked += 1;
+                    label5.Invoke((MethodInvoker)(() => listBox1.Items.Count.ToString()));
                     label3.Invoke((MethodInvoker)(() => label3.Text = $"Folders checked: {foldersChecked}"));
                     DiscoverDirs(dir, files);
                 }
@@ -143,8 +147,31 @@ namespace FileManager
             }
         }
 
+        public void settings()
+        {
+            using (StreamReader str = new StreamReader("cfg.ini", Encoding.Default))
+            {
+                string source = str.ReadLine();
+                List<string> lines = new List<string>();
+                foreach (string line in File.ReadAllLines("cfg.ini"))
+                {
+                    if (line.Contains("[LSEARCH]"))
+                    {
+                        textBox1.Invoke((MethodInvoker)(() => textBox1.Text = line.Split('=')[1]));
+                    }
+                    if (line.Contains("[PATHS]"))
+                    {
+                        if (listBox2.Items.Contains(line.Split('=')[1])) { }
+                        else { listBox2.Invoke((MethodInvoker)(() => listBox2.Items.Add(line.Split('=')[1]))); }
+                    }
+                }
+
+            }
+        }
+
         private void Form2_Load(object sender, EventArgs e)
         {
+            try { settings(); } catch { }
             DriveInfo[] driveInfo = DriveInfo.GetDrives();
             foreach (DriveInfo elem in driveInfo)
             {
@@ -155,10 +182,18 @@ namespace FileManager
 
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
+            File.Delete("cfg.ini");
+            //File.Create("cfg.ini");
+            using (StreamWriter streamWriter = new StreamWriter("cfg.ini"))
+            {
+                streamWriter.WriteLine($"[LSEARCH]={textBox1.Text}");
+                foreach (string item in listBox2.Items)
+                {
+                    streamWriter.WriteLine($"[PATHS]={item}");
+                }
+            }
             try { thread0.Abort(); } catch { }
         }
-
-        private Form1 mainForm = null;
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -168,6 +203,16 @@ namespace FileManager
             }
             catch{ }
 
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            listBox2.Items.Add(textBox2.Text);
         }
     }
 }
