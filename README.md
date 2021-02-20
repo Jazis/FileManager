@@ -20,6 +20,7 @@
 
 
 <h2>Сериншоты</h2>
+
 ![Скриншот основного окна](https://i.imgur.com/S0rpSrh.png)
 
 ![Скриншот окна настроек](https://i.imgur.com/wUqgAGD.png)
