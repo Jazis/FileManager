@@ -45,7 +45,7 @@ namespace FileManager
                 {
                     webBrowser1.Navigate(url);
                     textBox1.Invoke((MethodInvoker)(() => textBox1.Text = url));
-                    SearchNode(treeView1.Nodes, url);
+                    //SearchNode(treeView1.Nodes, url);
                     url = "";
                 }
             }
@@ -95,26 +95,26 @@ namespace FileManager
             }
         }
 
-        public void test()
-        {
-            string[] path = @"E:\metasploit-framework\".Split('\\');
-            foreach (string elem in path)
-            {
-                foreach (TreeNode node in treeView1.Nodes)
-                {
-                    if (node.ToString().Contains(elem.Replace(":", string.Empty)))
-                    {
-                        string p = node.FullPath;
-                    }
+        //public void test()
+        //{
+        //    string[] path = @"E:\metasploit-framework\".Split('\\');
+        //    foreach (string elem in path)
+        //    {
+        //        foreach (TreeNode node in treeView1.Nodes)
+        //        {
+        //            if (node.ToString().Contains(elem.Replace(":", string.Empty)))
+        //            {
+        //                string p = node.FullPath;
+        //            }
                     
-                }
-                    MessageBox.Show(elem);
-            }
-            //treeView1.
-            //treeView1.Nodes[0].Checked = true;
-            MessageBox.Show(treeView1.Nodes.Count.ToString());
+        //        }
+        //            MessageBox.Show(elem);
+        //    }
+        //    //treeView1.
+        //    //treeView1.Nodes[0].Checked = true;
+        //    MessageBox.Show(treeView1.Nodes.Count.ToString());
 
-        }
+        //}
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -122,37 +122,32 @@ namespace FileManager
             webBrowser1.Navigate(treeView1.SelectedNode.FullPath.Replace("\\\\", "\\"));
         }
 
-        public void openTree(string path)
-        {
+        //public void openTree(string path)
+        //{
 
-            string elem = "";
-            for(int i = 0; i< path.Split('\\').Length; i++)
-            {
-                elem += path.Split('\\')[i];
-                treeView1.Invoke((MethodInvoker)(() => treeView1.Nodes.Add(elem)));
-            }
-            MessageBox.Show(treeView1.Nodes.Count.ToString());
-        }
+        //    string elem = "";
+        //    for(int i = 0; i< path.Split('\\').Length; i++)
+        //    {
+        //        elem += path.Split('\\')[i];
+        //        treeView1.Invoke((MethodInvoker)(() => treeView1.Nodes.Add(elem)));
+        //    }
+        //    MessageBox.Show(treeView1.Nodes.Count.ToString());
+        //}
 
-        private void SearchNode(TreeNodeCollection tncoll, string strNode)
-        {
-            foreach (TreeNode tnode in tncoll)
-            {
-                if (tnode.Text.Contains(strNode))
-                {
-                    tnode.Expand();
-                }
-                else
-                {
-                }
-                SearchNode(tnode.Nodes, strNode);
-            }
-        }
-
-        private void button3_Click_1(object sender, EventArgs e)
-        {
-
-        }
+        //private void SearchNode(TreeNodeCollection tncoll, string strNode)
+        //{
+        //    foreach (TreeNode tnode in tncoll)
+        //    {
+        //        if (tnode.Text.Contains(strNode))
+        //        {
+        //            tnode.Expand();
+        //        }
+        //        else
+        //        {
+        //        }
+        //        SearchNode(tnode.Nodes, strNode);
+        //    }
+        //}
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {

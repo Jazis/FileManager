@@ -193,6 +193,7 @@ namespace FileManager
                 }
             }
             try { thread0.Abort(); } catch { }
+            Application.Exit();
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
