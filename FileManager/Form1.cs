@@ -153,5 +153,10 @@ namespace FileManager
         {
             textBox1.Text = webBrowser1.Url.ToString().Replace("file:///", "").Replace("/", "\\");
         }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            Application.Exit();
+        }
     }
 }
