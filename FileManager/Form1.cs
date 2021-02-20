@@ -38,7 +38,6 @@ namespace FileManager
 
         public void runner()
         {
-
             while (true)
             {
                 if (url == "") { }
@@ -84,9 +83,7 @@ namespace FileManager
                             node.ImageIndex = 12;
                             node.SelectedImageIndex = 12;
                         }
-                        catch (Exception ex)
-                        {
-                        }
+                        catch { }
                         finally
                         {
                             e.Node.Nodes.Add(node);
