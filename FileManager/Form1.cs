@@ -156,7 +156,7 @@ namespace FileManager
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
-            Application.Exit();
+            try { Thread.CurrentThread.Abort(); } catch { Application.Exit(); }
         }
     }
 }

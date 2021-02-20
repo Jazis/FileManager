@@ -149,33 +149,34 @@ namespace FileManager
 
         public void settings()
         {
-            using (StreamReader str = new StreamReader("cfg.ini", Encoding.Default))
+            List<string> lines = new List<string>();
+            foreach (string line in File.ReadAllLines("cfg.ini"))
             {
-                string source = str.ReadLine();
-                List<string> lines = new List<string>();
-                foreach (string line in File.ReadAllLines("cfg.ini"))
+                if (line.Contains("[LSEARCH]"))
                 {
-                    if (line.Contains("[LSEARCH]"))
-                    {
-                        textBox1.Invoke((MethodInvoker)(() => textBox1.Text = line.Split('=')[1]));
-                    }
-                    if (line.Contains("[PATHS]"))
-                    {
-                        if (listBox2.Items.Contains(line.Split('=')[1])) { }
-                        else { listBox2.Invoke((MethodInvoker)(() => listBox2.Items.Add(line.Split('=')[1]))); }
-                    }
+                    textBox1.Invoke((MethodInvoker)(() => textBox1.Text = line.Split('=')[1]));
                 }
-
+                if (line.Contains("[PATHS]"))
+                {
+                    if (listBox2.Items.Contains(line.Split('=')[1])) { }
+                    else { listBox2.Invoke((MethodInvoker)(() => listBox2.Items.Add(line.Split('=')[1]))); }
+                }
             }
         }
 
         private void Form2_Load(object sender, EventArgs e)
         {
             try { settings(); } catch { }
+            Thread.Sleep(1000);
             DriveInfo[] driveInfo = DriveInfo.GetDrives();
             foreach (DriveInfo elem in driveInfo)
             {
-                listBox2.Items.Add(elem.ToString());
+                if (listBox2.Items.Contains(elem.ToString())) { }
+                else
+                {
+                    listBox2.Items.Add(elem.ToString());
+                }
+                
             }
             listBox2.SetSelected(0, true);
         }
@@ -183,7 +184,6 @@ namespace FileManager
         private void Form2_FormClosing(object sender, FormClosingEventArgs e)
         {
             File.Delete("cfg.ini");
-            //File.Create("cfg.ini");
             using (StreamWriter streamWriter = new StreamWriter("cfg.ini"))
             {
                 streamWriter.WriteLine($"[LSEARCH]={textBox1.Text}");
@@ -192,8 +192,7 @@ namespace FileManager
                     streamWriter.WriteLine($"[PATHS]={item}");
                 }
             }
-            try { thread0.Abort(); } catch { }
-            Application.Exit();
+            //try { thread0.Abort(); } catch { }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
