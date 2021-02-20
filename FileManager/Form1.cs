@@ -76,7 +76,7 @@ namespace FileManager
                 else
                 {
                     webBrowser1.Navigate(url);
-                    textBox1.Text = url;
+                    textBox1.Invoke((MethodInvoker)(() => textBox1.Text = url));
                     openTree(url);
                     url = "";
                 }
@@ -183,25 +183,16 @@ namespace FileManager
             webBrowser1.Navigate(treeView1.SelectedNode.FullPath.Replace("\\\\", "\\"));
         }
 
-        private void openWait(TreeNode node, List<string> path)
-        {
-            path.RemoveAt(0);
-            node.Expand();
-            if (path.Count == 0)
-                return;
-            foreach (TreeNode mynode in node.Nodes)
-                if (mynode.Text == path[0])
-                    openWait(mynode, path);
-
-
-        }
-
         public void openTree(string path)
         {
-            List<string> pathList = path.Split('\\').ToList();
-            foreach (TreeNode node in treeView1.Nodes)
-                if (node.Text == pathList[0])
-                    openWait(node, pathList);
+            //var pathList = path.Split('\\').ToList();
+            string elem = "";
+            for(int i = 0; i< path.Split('\\').Length; i++)
+            {
+                elem += path.Split('\\')[i];
+                treeView1.Invoke((MethodInvoker)(() => treeView1.Nodes.Add(elem)));
+            }
+            MessageBox.Show(treeView1.Nodes.Count.ToString());
         }
     }
 }
