@@ -21,8 +21,14 @@
 
 <h2>Сериншоты</h2>
 
+<h3>Основное окно</h3>
+
 ![Скриншот основного окна](https://i.imgur.com/S0rpSrh.png)
 
+<h3>Поиск и настройки</h3>
+
 ![Скриншот окна настроек](https://i.imgur.com/wUqgAGD.png)
+
+<h3>Работоспособность</h3>
 
 ![Image alt](https://i.imgur.com/mjvYqSj.gif)
