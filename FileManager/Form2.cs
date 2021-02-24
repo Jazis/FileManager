@@ -108,7 +108,6 @@ namespace FileManager
 
         public void searching()
         {
-            //MessageBox.Show(disk);
             var list = new List<string>();
             DiscoverDirs(disk, list);
         }
@@ -192,7 +191,6 @@ namespace FileManager
                     streamWriter.WriteLine($"[PATHS]={item}");
                 }
             }
-            //try { thread0.Abort(); } catch { }
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)

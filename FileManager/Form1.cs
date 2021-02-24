@@ -45,7 +45,6 @@ namespace FileManager
                 {
                     webBrowser1.Navigate(url);
                     textBox1.Invoke((MethodInvoker)(() => textBox1.Text = url));
-                    //SearchNode(treeView1.Nodes, url);
                     openT(@url);
                     url = "";
                 }
@@ -95,27 +94,6 @@ namespace FileManager
                 }
             }
         }
-
-        //public void test()
-        //{
-        //    string[] path = @"E:\metasploit-framework\".Split('\\');
-        //    foreach (string elem in path)
-        //    {
-        //        foreach (TreeNode node in treeView1.Nodes)
-        //        {
-        //            if (node.ToString().Contains(elem.Replace(":", string.Empty)))
-        //            {
-        //                string p = node.FullPath;
-        //            }
-                    
-        //        }
-        //            MessageBox.Show(elem);
-        //    }
-        //    //treeView1.
-        //    //treeView1.Nodes[0].Checked = true;
-        //    MessageBox.Show(treeView1.Nodes.Count.ToString());
-
-        //}
 
         private void treeView1_NodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e)
         {
@@ -173,7 +151,6 @@ namespace FileManager
                         else { tnode.Nodes.Add(tnode.Text); }
                         
                     }
-                    //tnode = treeView1.Nodes;
                 }
                 else
                 {
