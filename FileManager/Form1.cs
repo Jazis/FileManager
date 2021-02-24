@@ -46,6 +46,7 @@ namespace FileManager
                     webBrowser1.Navigate(url);
                     textBox1.Invoke((MethodInvoker)(() => textBox1.Text = url));
                     //SearchNode(treeView1.Nodes, url);
+                    openT(@url);
                     url = "";
                 }
             }
@@ -122,32 +123,32 @@ namespace FileManager
             webBrowser1.Navigate(treeView1.SelectedNode.FullPath.Replace("\\\\", "\\"));
         }
 
-        //public void openTree(string path)
-        //{
+        public void openTree(string path)
+        {
 
-        //    string elem = "";
-        //    for(int i = 0; i< path.Split('\\').Length; i++)
-        //    {
-        //        elem += path.Split('\\')[i];
-        //        treeView1.Invoke((MethodInvoker)(() => treeView1.Nodes.Add(elem)));
-        //    }
-        //    MessageBox.Show(treeView1.Nodes.Count.ToString());
-        //}
+            string elem = "";
+            for (int i = 0; i < path.Split('\\').Length; i++)
+            {
+                elem += path.Split('\\')[i];
+                treeView1.Invoke((MethodInvoker)(() => treeView1.Nodes.Add(elem)));
+            }
+            MessageBox.Show(treeView1.Nodes.Count.ToString());
+        }
 
-        //private void SearchNode(TreeNodeCollection tncoll, string strNode)
-        //{
-        //    foreach (TreeNode tnode in tncoll)
-        //    {
-        //        if (tnode.Text.Contains(strNode))
-        //        {
-        //            tnode.Expand();
-        //        }
-        //        else
-        //        {
-        //        }
-        //        SearchNode(tnode.Nodes, strNode);
-        //    }
-        //}
+        private void SearchNode(TreeNodeCollection tncoll, string strNode)
+        {
+            foreach (TreeNode tnode in tncoll)
+            {
+                if (tnode.Text.Contains(strNode))
+                {
+                    tnode.Expand();
+                }
+                else
+                {
+                }
+                SearchNode(tnode.Nodes, strNode);
+            }
+        }
 
         private void webBrowser1_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
@@ -157,6 +158,37 @@ namespace FileManager
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
         {
             try { Thread.CurrentThread.Abort(); } catch { Application.Exit(); }
+        }
+
+        public void qwerty(TreeNodeCollection tncoll, string strNode)
+        {
+            foreach (TreeNode tnode in tncoll)
+            {
+                if (tnode.Text.Contains(strNode))
+                {
+                    try { tnode.Expand(); } catch { }
+                    foreach(TreeNode treeNode in tnode.Nodes)
+                    {
+                        if (tncoll.Contains(tnode)) { }
+                        else { tnode.Nodes.Add(tnode.Text); }
+                        
+                    }
+                    //tnode = treeView1.Nodes;
+                }
+                else
+                {
+                }
+                qwerty(tnode.Nodes, strNode);
+            }
+        }
+
+        public void openT(string path)
+        {
+            string[] vs = path.Split('\\');
+            foreach (string vs0 in vs)
+            {
+                qwerty(treeView1.Nodes, vs0);
+            }
         }
     }
 }
